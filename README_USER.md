@@ -217,6 +217,317 @@ Refresh the server’s cached obstruction data from the WPRDC source. Use after 
 
 ---
 
+## Example
+
+Query: 
+
+domi-obstruction-mcp-flyio list-all-active where the primary_street contains "'Fort Pitt' Smithfield Commonwealth Penn
+Smallman Butler 40th Friendship Negley Howe Beechwood Lilac". Remove the permit_type column, add work columns, and display
+the results in markdown
+
+  1. N NEGLEY AVE
+  ┌─────────────────────────┬──────────────────────────────────────────────────────────────────────────────┐
+  │ Field                   │ Value                                                                        │
+  ├─────────────────────────┼──────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id              │ DOMI-PL-2025-06643-7                                                         │
+  │ primary_street          │ N NEGLEY AVE                                                                 │
+  │ from_street → to_street │ CALLOWHILL ST → MELLON TER                                                   │
+  │ from_date               │ 2025-06-09                                                                   │
+  │ to_date                 │ 2026-05-24                                                                   │
+  │ work_description        │ DLCO REPLACING POLES AND UPGRADING SYSTEM FOR NEW PWSA HIGHLAND PUMP STATION │
+  │ work_type               │ —                                                                            │
+  │ applicant_name          │ DUQUESNE LIGHT COMPANY DOMI ACCOUNT                                          │
+  │ contractor_name         │ DUQUESNE LIGHT COMPANY                                                       │
+  │ special_instructions    │ —                                                                            │
+  │ weekday_hours           │ 9AM-3PM                                                                      │
+  │ weekend_hours           │ 7AM-5PM                                                                      │
+  └─────────────────────────┴──────────────────────────────────────────────────────────────────────────────┘
+
+
+  2. FORT PITT BLVD
+  ┌────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field          │ Value                                                                                                           │
+  ├────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id     │ DOMI-CS-2025-06060-1                                                                                            │
+  │ primary_street │ FORT PITT BLVD                                                                                                  │
+  │ from_street →  │ STANWIX ST → FORT PITT BLVD RAMP                                                                                │
+  │ to_street      │                                                                                                                 │
+  │ from_date      │ 2025-06-09                                                                                                      │
+  │ to_date        │ 2026-04-10                                                                                                      │
+  │ work_descripti │ PHASE 3 CONSTRUCTION STAGING PERMIT. DEMOLITION OF BALCONIES ABOVE. SIDEWALK CLOSURE FOR PEDESTRIAN SAFETY. 12  │
+  │ on             │ STORIES OF SCAFFOLDING TO BE ERECTED TO COMPLETE DEMOLITION.                                                    │
+  │ work_type      │ BARRICADE                                                                                                       │
+  │ applicant_name │ ERNEST SOTA                                                                                                     │
+  │ contractor_nam │ SOTA CONSTRUCTION SERVICES, INC                                                                                 │
+  │ e              │                                                                                                                 │
+  │ special_instru │ —                                                                                                               │
+  │ ctions         │                                                                                                                 │
+  │ weekday_hours  │ ALL                                                                                                             │
+  │ weekend_hours  │ ALL                                                                                                             │
+  └────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  3. SMALLMAN ST
+  ┌────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field          │ Value                                                                                                           │
+  ├────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id     │ DOMI-CS-2023-09809-1                                                                                            │
+  │ primary_street │ SMALLMAN ST                                                                                                     │
+  │ from_street →  │ 29TH ST → 30TH ST                                                                                               │
+  │ to_street      │                                                                                                                 │
+  │ from_date      │ 2023-10-30                                                                                                      │
+  │ to_date        │ 2026-07-04                                                                                                      │
+  │ work_descripti │ INSTALLATION OF BARRICADES ON SMALLMAN STREET AND SPRUCE WAY TO FACILITATE THE REDEVELOPMENT OF 2929 SMALLMAN   │
+  │ on             │ STREET. KEEP 2 TRAVEL LANES OPEN ON SMALLMAN ST JANUARY 5-15, 2026.                                             │
+  │ work_type      │ BARRICADE                                                                                                       │
+  │ applicant_name │ KYLE BROWN                                                                                                      │
+  │ contractor_nam │ THE HUDSON GROUP INC                                                                                            │
+  │ e              │                                                                                                                 │
+  │ special_instru │ KEEP 2 TRAVEL LANES OPEN ON SMALLMAN ST JANUARY 5-15, 2026.                                                     │
+  │ ctions         │                                                                                                                 │
+  │ weekday_hours  │ ALL                                                                                                             │
+  │ weekend_hours  │ ALL                                                                                                             │
+  └────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  4. BUTLER ST
+  ┌──────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field    │ Value                                                                                                                 │
+  ├──────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_ │ DOMI-CS-2024-04679-2                                                                                                  │
+  │ id       │                                                                                                                       │
+  │ primary_ │ BUTLER ST                                                                                                             │
+  │ street   │                                                                                                                       │
+  │ from_str │ MCCANDLESS AVE → 53RD ST                                                                                              │
+  │ eet      │                                                                                                                       │
+  │ →        │                                                                                                                       │
+  │ to_stree │                                                                                                                       │
+  │ t        │                                                                                                                       │
+  │ from_dat │ 2024-04-22                                                                                                            │
+  │ e        │                                                                                                                       │
+  │ to_date  │ 2026-03-11                                                                                                            │
+  │ work_des │ SELECTIVE CLOSURE OF SIDEWALKS AND PARKING LANES ADJACENT TO PROJECT SITE FOR LAYDOWN, DUMPSTERS, OFFLOADING,         │
+  │ cription │ TRAILERS AND TEMP TOILETS, ETC. 2 PHASES BEING PROPOSED. REFERENCE THE MPT PLAN FOR SPECIFICS. AROUND THE CLOCK       │
+  │          │ CLOSURE OF THE SIDEWALK AND PARKING LANE ON BUTLER ST AND ON MCCANDLESS AVE.                                          │
+  │ work_typ │ BARRICADE                                                                                                             │
+  │ e        │                                                                                                                       │
+  │ applican │ NATHAN HEID                                                                                                           │
+  │ t_name   │                                                                                                                       │
+  │ contract │ FRANJO CONSTRUCTION CORPORATION                                                                                       │
+  │ or_name  │                                                                                                                       │
+  │ special_ │ COORDINATE WITH OTHER AREA CONSTRUCTION; CONTACT PRT (412)566-5321; MAINTAIN PEDESTRIAN PATH; ONE LANE EACH           │
+  │ instruct │ DIRECTION; POST NO PARKING 48 HRS IN ADVANCE; PENNDOT 212/213.                                                        │
+  │ ions     │                                                                                                                       │
+  │ weekday_ │ ALL                                                                                                                   │
+  │ hours    │                                                                                                                       │
+  │ weekend_ │ ALL                                                                                                                   │
+  │ hours    │                                                                                                                       │
+  └──────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  5. PENN AVE
+  ┌──────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field                │ Value                                                                                                     │
+  ├──────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id           │ DOMI-CS-2024-15816-1                                                                                      │
+  │ primary_street       │ PENN AVE                                                                                                  │
+  │ from_street →        │ 27TH ST → 28TH ST                                                                                         │
+  │ to_street            │                                                                                                           │
+  │ from_date            │ 2025-01-13                                                                                                │
+  │ to_date              │ 2026-06-11                                                                                                │
+  │ work_description     │ FENCING AROUND 2700 PENN (APN# 25-K-261) TO BEGIN WORK UNDER DP-2024-08439.                               │
+  │ work_type            │ BARRICADE                                                                                                 │
+  │ applicant_name       │ MARK ROBERTS                                                                                              │
+  │ contractor_name      │ FRANJO CONSTRUCTION CORPORATION                                                                           │
+  │ special_instructions │ PENNDOT PUB. 213 COMPLIANT PEDESTRIAN DETOUR REQUIRED DURING ALL SIDEWALK CLOSURES LEAVING 4' OR LESS OF  │
+  │                      │ CLEARANCE.                                                                                                │
+  │ weekday_hours        │ ALL                                                                                                       │
+  │ weekend_hours        │ ALL                                                                                                       │
+  └──────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  6. PENN AVE
+  ┌───────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field         │ Value                                                                                                            │
+  ├───────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id    │ DOMI-OP-2025-09309-3                                                                                             │
+  │ primary_stree │ PENN AVE                                                                                                         │
+  │ t             │                                                                                                                  │
+  │ from_street → │ 35TH ST → 36TH ST                                                                                                │
+  │ to_street     │                                                                                                                  │
+  │ from_date     │ 2025-07-28                                                                                                       │
+  │ to_date       │ 2026-04-03                                                                                                       │
+  │ work_descript │ SMALL DIAMETER WATER MAIN INSTALLATION AND REPLACEMENT ALONG WITH SERVICE LINE REPLACEMENTS ON THE PUBLIC AND    │
+  │ ion           │ PRIVATE SIDE ON LIGONIER ST. INTERSECTIONS INCLUDED WITH WORK @ SPRING WAY & PENN AVE.                           │
+  │ work_type     │ DOMI APPROVED CAPITAL UTILITY PROJECT                                                                            │
+  │ applicant_nam │ KEWEI ZHOU                                                                                                       │
+  │ e             │                                                                                                                  │
+  │ contractor_na │ AECOM DBA PWSA                                                                                                   │
+  │ me            │                                                                                                                  │
+  │ special_instr │ CONTACT PITTSBURGH REGIONAL TRANSIT AT 412-566-5321 AT LEAST 48 HOURS PRIOR TO TRAVEL LANE OBSTRUCTIONS OR       │
+  │ uctions       │ CLOSURES.                                                                                                        │
+  │ weekday_hours │ 7AM-5PM                                                                                                          │
+  │ weekend_hours │ 7AM-5PM                                                                                                          │
+  └───────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  7. PENN AVE
+  ┌─────────────────────────┬────────────────────────────────────────┐
+  │ Field                   │ Value                                  │
+  ├─────────────────────────┼────────────────────────────────────────┤
+  │ closure_id              │ DOMI-OP-2025-09309-4                   │
+  │ primary_street          │ PENN AVE                               │
+  │ from_street → to_street │ 35TH ST → 36TH ST                      │
+  │ from_date               │ 2025-07-28                             │
+  │ to_date                 │ 2026-04-03                             │
+  │ work_description        │ Same as #6 (segment 4 of same permit). │
+  │ work_type               │ DOMI APPROVED CAPITAL UTILITY PROJECT  │
+  │ applicant_name          │ KEWEI ZHOU                             │
+  │ contractor_name         │ AECOM DBA PWSA                         │
+  │ special_instructions    │ Same as #6.                            │
+  │ weekday_hours           │ 7AM-5PM                                │
+  │ weekend_hours           │ 7AM-5PM                                │
+  └─────────────────────────┴────────────────────────────────────────┘
+
+  8. BEECHWOOD BLVD
+  ┌──────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field                │ Value                                                                                                     │
+  ├──────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id           │ DOMI-OP-2025-11996-1                                                                                      │
+  │ primary_street       │ BEECHWOOD BLVD                                                                                            │
+  │ from_street →        │ FORBES AVE → BEACON ST                                                                                    │
+  │ to_street            │                                                                                                           │
+  │ from_date            │ 2025-10-06                                                                                                │
+  │ to_date              │ 2026-03-22                                                                                                │
+  │ work_description     │ WATER SERVICE LINE VERIFICATIONS AND LEAD SERVICE LINE REPLACEMENTS ON PUBLIC SIDE AND PRIVATE SIDE ON    │
+  │                      │ BEECHWOOD BLVD.                                                                                           │
+  │ work_type            │ DOMI APPROVED STAND ALONE SERVICE LINES PROJECT                                                           │
+  │ applicant_name       │ KATIE MARCHESE                                                                                            │
+  │ contractor_name      │ AECOM DBA PWSA                                                                                            │
+  │ special_instructions │ MAINTAIN TWO LANES OF TRAFFIC FOR THE COMMERCIAL ST DETOUR                                                │
+  │ weekday_hours        │ 9AM-3PM                                                                                                   │
+  │ weekend_hours        │ 7AM-5PM                                                                                                   │
+  └──────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  9. SMITHFIELD ST
+
+  ┌───────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field         │ Value                                                                                                            │
+  ├───────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id    │ DOMI-SIDE-2025-06532-1                                                                                           │
+  │ primary_stree │ SMITHFIELD ST                                                                                                    │
+  │ t             │                                                                                                                  │
+  │ from_street → │ FORT PITT BLVD → FIRST AVE                                                                                       │
+  │ to_street     │                                                                                                                  │
+  │ from_date     │ 2025-11-03                                                                                                       │
+  │ to_date       │ 2026-03-13                                                                                                       │
+  │ work_descript │ SIDEWALK MAINTENANCE ALONG FORT PITT BOULEVARD AND SMITHFIELD STREET. SIDEWALK ABOVE UTILITY AND BASEMENT ACCESS │
+  │ ion           │ VAULTS FOR 4 SMITHFIELD STREET. CLEAN/REPAINT OR FULL SLAB REPLACEMENT.                                          │
+  │ work_type     │ —                                                                                                                │
+  │ applicant_nam │ MICHAEL MCCORMICK                                                                                                │
+  │ e             │                                                                                                                  │
+  │ contractor_na │ WODA CONSTRUCTION, INC.                                                                                          │
+  │ me            │                                                                                                                  │
+  │ special_instr │ PENNDOT PUB. 213 COMPLIANT PEDESTRIAN DETOUR REQUIRED DURING ALL SIDEWALK CLOSURES.                              │
+  │ uctions       │                                                                                                                  │
+  │ weekday_hours │ 9AM-3PM                                                                                                          │
+  │ weekend_hours │ 7AM-5PM                                                                                                          │
+  └───────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  10. FORT PITT BLVD
+  ┌─────────────────────────┬─────────────────────────────────────────────┐
+  │ Field                   │ Value                                       │
+  ├─────────────────────────┼─────────────────────────────────────────────┤
+  │ closure_id              │ DOMI-SIDE-2025-06532-2                      │
+  │ primary_street          │ FORT PITT BLVD                              │
+  │ from_street → to_street │ SMITHFIELD ST → CHERRY WAY                  │
+  │ from_date               │ 2025-11-03                                  │
+  │ to_date                 │ 2026-03-13                                  │
+  │ work_description        │ Same permit as #9 — Fort Pitt Blvd segment. │
+  │ work_type               │ —                                           │
+  │ applicant_name          │ MICHAEL MCCORMICK                           │
+  │ contractor_name         │ WODA CONSTRUCTION, INC.                     │
+  │ special_instructions    │ Same as #9.                                 │
+  │ weekday_hours           │ 9AM-3PM                                     │
+  │ weekend_hours           │ 7AM-5PM                                     │
+  └─────────────────────────┴─────────────────────────────────────────────┘
+
+  11. COMMONWEALTH PL
+  ┌────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field              │ Value                                                                                                       │
+  ├────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id         │ DOMI-OP-2025-05193-1                                                                                        │
+  │ primary_street     │ COMMONWEALTH PL                                                                                             │
+  │ from_street →      │ FORT DUQUESNE BLVD → LIBERTY AVE                                                                            │
+  │ to_street          │                                                                                                             │
+  │ from_date          │ 2025-12-15                                                                                                  │
+  │ to_date            │ 2026-02-20                                                                                                  │
+  │ work_description   │ NEW FIBER OPTIC CABLE INSTALLATION VIA OPEN-CUT TRENCH. COMMONWEALTH PL & LIBERTY AVE TO FORT DUQUESNE BLVD │
+  │                    │ & COMMONWEALTH PL.                                                                                          │
+  │ work_type          │ TELECOM                                                                                                     │
+  │ applicant_name     │ MERINDA SIMPSON                                                                                             │
+  │ contractor_name    │ VYTAL DIGITAL INFRASTRUCTURE CORP.                                                                          │
+  │ special_instructio │ PLATE/REOPEN OUTSIDE WORK HOURS; REMOVE OBSTRUCTIONS 2 HRS AROUND SPECIAL EVENTS; CONTACT PRT 412-566-5321; │
+  │ ns                 │ PPS; ROLL KALL 855-589-1126.                                                                                │
+  │ weekday_hours      │ 9AM-3PM                                                                                                     │
+  │ weekend_hours      │ NONE                                                                                                        │
+  └────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+  
+  12. S NEGLEY AVE
+  ┌──────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field                │ Value                                                                                                     │
+  ├──────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id           │ DOMI-OP-2025-13621-1                                                                                      │
+  │ primary_street       │ S NEGLEY AVE                                                                                              │
+  │ from_street →        │ HUGUS PL → EVA ST                                                                                         │
+  │ to_street            │                                                                                                           │
+  │ from_date            │ 2025-11-04                                                                                                │
+  │ to_date              │ 2026-03-31                                                                                                │
+  │ work_description     │ WATER SERVICE LINE VERIFICATION AND LEAD SERVICE LINE REPLACEMENT ON PUBLIC SIDE AND PRIVATE SIDE ON S    │
+  │                      │ NEGLEY AVE.                                                                                               │
+  │ work_type            │ RESTORATION                                                                                               │
+  │ applicant_name       │ KATIE MARCHESE                                                                                            │
+  │ contractor_name      │ AECOM DBA PWSA                                                                                            │
+  │ special_instructions │ —                                                                                                         │
+  │ weekday_hours        │ 9AM-3PM                                                                                                   │
+  │ weekend_hours        │ —                                                                                                         │
+  └──────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  13. BEECHWOOD BLVD
+  ┌──────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Field                │ Value                                                                                                     │
+  ├──────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ closure_id           │ DOMI-UOP-2025-14265-7                                                                                     │
+  │ primary_street       │ BEECHWOOD BLVD                                                                                            │
+  │ from_street →        │ S DALLAS AVE → BEECHWOOD BLVD RAMP                                                                        │
+  │ to_street            │                                                                                                           │
+  │ from_date            │ 2025-11-19                                                                                                │
+  │ to_date              │ 2026-04-27                                                                                                │
+  │ work_description     │ WATER SERVICE LINE VERIFICATIONS AND LEAD SERVICE LINE REPLACEMENTS THROUGHOUT SQUIRREL HILL SOUTH;       │
+  │                      │ DOMI-UP-2025-12719.                                                                                       │
+  │ work_type            │ —                                                                                                         │
+  │ applicant_name       │ EMILY WILSON                                                                                              │
+  │ contractor_name      │ INDEPENDENT ENTERPRISES, INC., AECOM DBA PWSA                                                             │
+  │ special_instructions │ MAINTAIN TWO LANES OF TRAFFIC FOR COMMERCIAL ST DETOUR                                                    │
+  │ weekday_hours        │ 09:00–15:00                                                                                               │
+  │ weekend_hours        │ 09:00–15:00                                                                                               │
+  └──────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  14. BEECHWOOD BLVD
+
+  ┌─────────────────────────┬───────────────────────────────────────────────┐
+  │ Field                   │ Value                                         │
+  ├─────────────────────────┼───────────────────────────────────────────────┤
+  │ closure_id              │ DOMI-UOP-2025-14265-8                         │
+  │ primary_street          │ BEECHWOOD BLVD                                │
+  │ from_street → to_street │ BEECHWOOD BLVD RAMP → SHAW AVE                │
+  │ from_date               │ 2025-11-19                                    │
+  │ to_date                 │ 2026-04-27                                    │
+  │ work_description        │ Same permit as #13 — segment 8.               │
+  │ work_type               │ —                                             │
+  │ applicant_name          │ EMILY WILSON                                  │
+  │ contractor_name         │ INDEPENDENT ENTERPRISES, INC., AECOM DBA PWSA │
+  │ special_instructions    │ Same as #13.                                  │
+  │ weekday_hours           │ 09:00–15:00                                   │
+  │ weekend_hours           │ 09:00–15:00                                   │
+  └─────────────────────────┴───────────────────────────────────────────────┘
+
+
 ## Quick Reference
 
 | Tool                  | Purpose |
