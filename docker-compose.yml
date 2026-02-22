@@ -1,0 +1,29 @@
+# DOMI Obstruction MCP Server — keep container running unless stopped or restarted.
+# From repo root: docker compose up -d
+# Stop: docker compose down
+
+services:
+  domi-obstruction-mcp-stdio:
+    build:
+      context: ./server
+      dockerfile: Dockerfile_Stdio
+    image: domi-obstruction-mcp-stdio:latest
+    container_name: domi-obstruction-mcp-stdio
+    stdin_open: true
+    restart: unless-stopped
+    # Optional: limit records ingested on startup (faster startup, less memory)
+    # environment:
+    #   WPRDC_INGEST_MAX_RECORDS: "5000"
+  domi-obstruction-mcp-http:
+    build:
+      context: ./server
+      dockerfile: Dockerfile_HTTP
+    image: domi-obstruction-mcp-http:latest
+    container_name: domi-obstruction-mcp-http
+    stdin_open: true
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    # Optional: limit records ingested on startup (faster startup, less memory)
+    # environment:
+    #   WPRDC_INGEST_MAX_RECORDS: "5000"

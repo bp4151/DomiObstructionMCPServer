@@ -1,0 +1,39 @@
+# DOMI Obstruction MCP Server — WPRDC data over stdio
+# Multi-stage build: install deps in -dev image, run in minimal Chainguard Python image
+
+# ------------------------------------------------------------------------------
+# Stage 1: builder — install dependencies into a venv
+# ------------------------------------------------------------------------------
+FROM cgr.dev/chainguard/python:latest-dev AS builder
+
+ENV LANG=C.UTF-8
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PATH="/app/venv/bin:$PATH"
+
+WORKDIR /app
+
+RUN python -m venv /app/venv
+COPY pyproject.toml .
+# MCP spec 2025-11-25; SDK 1.23.0+
+RUN pip install --no-cache-dir "httpx>=0.28.1" "mcp[cli]>=1.23.0"
+
+# ------------------------------------------------------------------------------
+# Stage 2: runtime — minimal image with venv and app code only
+# ------------------------------------------------------------------------------
+FROM cgr.dev/chainguard/python:latest
+
+WORKDIR /app
+
+ENV PYTHONUNBUFFERED=1
+ENV PATH="/app/venv/bin:$PATH"
+
+COPY main.py wprdc.py ./
+COPY --from=builder /app/venv /app/venv
+
+# Optional: limit records ingested on startup (e.g. 5000 for faster startup)
+# ENV WPRDC_INGEST_MAX_RECORDS=5000
+
+# Run with venv Python so anyio, mcp, etc. are found (base image ENTRYPOINT is /usr/bin/python)
+ENTRYPOINT ["/app/venv/bin/python"]
+CMD ["-u", "main.py"]

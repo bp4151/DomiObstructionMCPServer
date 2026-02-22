@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "domi-obstruction-mcp-stdio": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "domi-obstruction-mcp:stdio"],
+      "transport": "stdio"
+    },
+    "domi-obstruction-mcp-http": {
+      "url": "http://localhost:8000/mcp"
+    }
+  }
+}

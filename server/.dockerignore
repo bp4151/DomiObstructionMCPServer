@@ -1,0 +1,17 @@
+# Git and IDE
+.git
+.gitignore
+.venv
+__pycache__
+*.pyc
+.python-version
+
+# Project metadata (not needed in image)
+README_SERVER.md
+*.md
+terminals
+
+# Local / env
+.env
+.env.*
+*.lock

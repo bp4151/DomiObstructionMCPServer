@@ -1,0 +1,12 @@
+[project]
+name = "domiobstructionmcpserver"
+version = "0.1.0"
+description = "MCP server for WPRDC DOMI obstruction data"
+readme = "README_SERVER.md"
+requires-python = ">=3.14"
+dependencies = [
+    "httpx>=0.28.1",
+    # MCP spec 2025-11-25 (https://modelcontextprotocol.io/specification/2025-11-25); SDK 1.23.0+
+    "mcp[cli]>=1.23.0",
+    "python-dotenv>=1.0.0",
+]
