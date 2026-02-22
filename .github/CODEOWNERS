@@ -1,0 +1,14 @@
+# CODEOWNERS
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Add one or more owners (GitHub usernames or org/team). The last matching pattern
+# takes precedence. For personal repos use @username; for orgs use @org/team.
+
+# Default owner for the entire repository (required)
+/.github/ @bp4151
+* @bp4151
+
+# Optional: path-specific owners (uncomment and replace as needed)
+# /server/    @your-org/server-maintainers
+# /client/    @your-org/docs-maintainers
+# /.github/   @your-org/infra-maintainers
