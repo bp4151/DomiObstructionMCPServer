@@ -8,5 +8,5 @@ dependencies = [
     "httpx>=0.28.1",
     # MCP spec 2025-11-25 (https://modelcontextprotocol.io/specification/2025-11-25); SDK 1.23.0+
     "mcp[cli]>=1.23.0",
-    "python-dotenv>=1.0.0",
+    "python-dotenv>=1.2.2",
 ]
