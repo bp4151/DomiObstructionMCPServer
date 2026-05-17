@@ -12,7 +12,7 @@ App Runner runs your container, assigns a public URL, and handles scaling and HT
 
 - AWS account and AWS CLI configured (or AWS SSO — see below)
 - Docker installed
-- Repository in the **server** directory with `Dockerfile_HTTP`, `main.py`, `wprdc.py`, `pyproject.toml`
+- Repository in the **../server** directory with `Dockerfile_HTTP`, `main.py`, `wprdc.py`, `pyproject.toml`
 
 ### Using AWS SSO (recommended)
 
@@ -48,7 +48,7 @@ With SSO, account and region come from your profile; you don’t need to set the
 
 ### Step 1: Build and push the image to Amazon ECR
 
-From the **server** directory:
+From the **../server** directory:
 
 **With AWS SSO** (account and region from your profile):
 
