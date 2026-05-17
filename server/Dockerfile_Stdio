@@ -14,9 +14,8 @@ ENV PATH="/app/venv/bin:$PATH"
 WORKDIR /app
 
 RUN python -m venv /app/venv
-COPY pyproject.toml .
-# MCP spec 2025-11-25; SDK 1.23.0+
-RUN pip install --no-cache-dir "httpx>=0.28.1" "mcp[cli]>=1.23.0"
+COPY pyproject.toml main.py wprdc.py ./
+RUN pip install --no-cache-dir .
 
 # ------------------------------------------------------------------------------
 # Stage 2: runtime — minimal image with venv and app code only
