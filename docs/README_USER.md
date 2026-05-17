@@ -51,7 +51,25 @@ Add this to the `mcpServers` object in your MCP config file. If you already have
 2. Add the server entry with `"url": "https://domi-obstruction.fly.dev/mcp"`.
 3. Save the file. Reload Cursor or run **Developer: Reload Window** if the server does not appear.
 
-You should see **domi-obstruction-mcp** and tools: `search_obstructions`, `list_active_entries`, `obstruction_count`, `refresh_data`.
+You should see **domi-obstruction-mcp** and tools: `search_obstructions`, `list_active_entries`, `obstruction_count`, `match_gpx_obstructions`, `refresh_data`.
+
+### Troubleshooting: "Session not found" (404)
+
+If the Fly.io server returns **Session not found** (404), the MCP HTTP transport is session-based and the Fly.io app was likely **stopped** (scale-to-zero). When the app stops, in-memory sessions are lost; when it wakes up, the client’s old session ID is no longer valid.
+
+**Fixes:**
+
+1. **Server-side (recommended for reliability):** Keep at least one machine running so the app never fully stops and sessions persist. In the repo’s `../server/fly.toml`, set:
+   ```toml
+   min_machines_running = 1
+   ```
+   Then redeploy (`fly deploy`). Cost: one machine is always on (no scale-to-zero).
+
+2. **Client-side (quick workaround):** Force the client to create a **new session** after a 404:
+   - In Cursor: **Developer: Reload Window** (`Ctrl+Shift+P` / `Cmd+Shift+P`), or remove and re-add the Fly.io server in **Settings → MCP** and reload.
+   - Retry the tool call; the new session will work until the app stops again.
+
+Using **min_machines_running = 1** is the most reliable fix; the client workaround is useful when the app has been idle and you just need one request to succeed.
 
 ---
 
@@ -189,7 +207,31 @@ Return the total number of DOMI obstruction records in the datastore (as of last
 
 ---
 
-### 4. `refresh_data`
+### 4. `match_gpx_obstructions`
+
+Find active DOMI records that match route segments in a GPX file. This tool uses spatial matching to identify obstructions that intersect or are very close to a provided route.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `gpx_content` | string | Yes | The XML content of the GPX file. |
+| `distance_threshold` | number | No | Distance in degrees to consider a match (default `0.0001`, ~10m). |
+
+**Sample:**
+
+```json
+{
+  "gpx_content": "<?xml version=\"1.0\"...<trk>...</gpx>",
+  "distance_threshold": 0.0002
+}
+```
+
+**Response:** JSON with `success: true`, `matches` (list of record objects), and `total_matches`.
+
+---
+
+### 5. `refresh_data`
 
 Refresh the server’s cached obstruction data from the WPRDC source. Use after the dataset is updated and you want the server to reload.
 
@@ -224,6 +266,7 @@ Refresh the server’s cached obstruction data from the WPRDC source. Use after 
 | `search_obstructions` | Search by street(s), keyword, or filters; paginate with `limit`/`offset`. |
 | `list_active_entries`| List active obstructions only; paginate with `limit`/`offset`. |
 | `obstruction_count`  | Get total record count. |
+| `match_gpx_obstructions` | Find active closures matching a GPX route. |
 | `refresh_data`       | Reload cache from WPRDC (optional `max_records`). |
 
-For local or self-hosted setup, see [client/README_CLIENT.md](client/README_CLIENT.md) and [server/README_SERVER.md](server/README_SERVER.md).
+For local or self-hosted setup, see [../client/README_CLIENT.md](../client/README_CLIENT.md) and [../server/README_SERVER.md](../server/README_SERVER.md).
