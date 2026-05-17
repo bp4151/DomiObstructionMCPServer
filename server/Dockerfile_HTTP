@@ -3,7 +3,16 @@
 # Server listens on MCP_PORT (default 8000) for streaming HTTP transport (endpoint /mcp).
 
 # ------------------------------------------------------------------------------
-# Stage 1: builder — install dependencies into a venv
+# Stage 1: builder — install dependencies into a venv from pyproject.toml
+# ------------------------------------------------------------------------------
+# How to install dependencies to /app/venv using pyproject.toml:
+#   1. Create a venv:    python -m venv /app/venv
+#   2. Activate it:      ENV PATH="/app/venv/bin:$PATH"  (or source /app/venv/bin/activate)
+#   3. Copy the project: COPY pyproject.toml [and app code] .
+#   4. Install project (and its deps from pyproject.toml):
+#      pip install --no-cache-dir .
+#   Dependencies are read from the [project] dependencies list in pyproject.toml.
+#   To add/update deps, edit pyproject.toml and rebuild the image.
 # ------------------------------------------------------------------------------
 FROM cgr.dev/chainguard/python:latest-dev AS builder
 
@@ -15,9 +24,8 @@ ENV PATH="/app/venv/bin:$PATH"
 WORKDIR /app
 
 RUN python -m venv /app/venv
-COPY pyproject.toml .
-# MCP spec 2025-11-25; SDK 1.23.0+
-RUN pip install --no-cache-dir "httpx>=0.28.1" "mcp[cli]>=1.23.0"
+COPY pyproject.toml main.py wprdc.py ./
+RUN pip install --no-cache-dir .
 
 # ------------------------------------------------------------------------------
 # Stage 2: runtime — minimal image with venv and app code only

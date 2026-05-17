@@ -11,7 +11,9 @@ primary_region = 'iad'
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
-  min_machines_running = 0
+  # Use min_machines_running = 1 to avoid "Session not found" (404) when clients
+  # reuse a session after the app was stopped. See README_USER.md § Troubleshooting.
+  min_machines_running = 1
   processes = ['app']
 
 [[vm]]

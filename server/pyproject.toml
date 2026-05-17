@@ -1,3 +1,10 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = []
+
 [project]
 name = "domiobstructionmcpserver"
 version = "0.1.0"
@@ -9,4 +16,7 @@ dependencies = [
     # MCP spec 2025-11-25 (https://modelcontextprotocol.io/specification/2025-11-25); SDK 1.23.0+
     "mcp[cli]>=1.23.0",
     "python-dotenv>=1.0.0",
+    "cyclopts>=4.5.1",
+    "gpxpy>=1.6.2",
+    "shapely>=2.0.7"
 ]

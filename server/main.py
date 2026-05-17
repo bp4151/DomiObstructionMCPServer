@@ -10,6 +10,8 @@ import asyncio
 import json
 import logging
 import os
+import gpxpy
+from shapely.geometry import LineString, Point
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
 from mcp.server.transport_security import TransportSecuritySettings
@@ -83,7 +85,7 @@ async def wprdc_search_obstructions(
     limit: int = 100,
     offset: int = 0,
     q: str | None = None,
-    filters: str | None = None,
+    filters: dict | None = None,
 ) -> str:
     """Search DOMI (Department of Mobility and Infrastructure) obstruction/closure records from WPRDC.
 
@@ -95,21 +97,14 @@ async def wprdc_search_obstructions(
         q: Optional full-text search query.
         filters: Optional JSON object of field filters, e.g. {"primary_street": "SECOND AVE"}.
     """
-    filters_dict: dict | None = None
-    if filters:
-        try:
-            filters_dict = json.loads(filters)
-        except json.JSONDecodeError as e:
-            raise ValueError(f"Invalid filters JSON: {e}") from e
-
     if _cached_records:
-        data = _slice_cache(limit, offset, filters_dict, q)
+        data = _slice_cache(limit, offset, filters, q)
     else:
         loop = asyncio.get_event_loop()
         data = await loop.run_in_executor(
             None,
             lambda: fetch_obstructions(
-                limit=limit, offset=offset, filters=filters_dict, q=q
+                limit=limit, offset=offset, filters=filters, q=q
             ),
         )
     return json.dumps(data, indent=2)
@@ -150,6 +145,71 @@ async def wprdc_obstruction_count() -> str:
         )
         total = data.get("result", {}).get("total", 0)
     return json.dumps({"total": total}, indent=2)
+
+
+@mcp.tool("match_gpx_obstructions")
+async def match_gpx_obstructions(
+    gpx_content: str, distance_threshold: float = 0.0001
+) -> str:
+    """Find active DOMI records that match route segments in a GPX file.
+
+    Args:
+        gpx_content: The XML content of the GPX file.
+        distance_threshold: Distance in degrees to consider a match (default 0.0001, ~10m).
+    """
+    try:
+        gpx = gpxpy.parse(gpx_content)
+    except Exception as e:
+        return json.dumps({"success": False, "error": f"Failed to parse GPX: {str(e)}"})
+
+    route_points = []
+    for track in gpx.tracks:
+        for segment in track.segments:
+            for point in segment.points:
+                route_points.append((point.latitude, point.longitude))
+
+    if not route_points:
+        # Try routes if no tracks
+        for route in gpx.routes:
+            for point in route.points:
+                route_points.append((point.latitude, point.longitude))
+
+    if not route_points:
+        return json.dumps({"success": False, "error": "No points found in GPX file"})
+
+    if len(route_points) < 2:
+        # If only one point, use Point instead of LineString
+        route_geom = Point(route_points[0])
+    else:
+        route_geom = LineString(route_points)
+
+    matches = []
+    # Only check active records
+    active_records = [r for r in _cached_records if r.get("active") is True]
+
+    for record in active_records:
+        geom_str = record.get("geometry")
+        if not geom_str:
+            continue
+
+        try:
+            coords = json.loads(geom_str)
+            if not coords:
+                continue
+
+            if len(coords) < 2:
+                obstruction_geom = Point(coords[0])
+            else:
+                obstruction_geom = LineString(coords)
+
+            if route_geom.distance(obstruction_geom) <= distance_threshold:
+                matches.append(record)
+        except Exception:
+            continue
+
+    return json.dumps(
+        {"success": True, "matches": matches, "total_matches": len(matches)}, indent=2
+    )
 
 
 @mcp.tool("refresh_data")
